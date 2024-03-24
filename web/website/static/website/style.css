@@ -346,6 +346,7 @@ h4 {
   border-radius: 50%;
   background-color: var(--color-logo-background);
   width: 20em;
+  height: 20em;
   object-fit: cover;
   margin-top: 2em;
 }
