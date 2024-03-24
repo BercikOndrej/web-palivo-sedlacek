@@ -6,13 +6,14 @@ services:
       context: .
     volumes:
       - static-files:/vol/web
+      - ./data:/vol/web/price-list
     environment:
       - SECRET_KEY=q2rc=2=wmn^(^=210vz!hon+vw@$bd!+hf&@zj1g2xowz77=m*
       - ALLOWED_HOSTS=palivosedlacek.cz,palivosedlacek.cz
       - EMAIL_HOST=smtp.gmail.com
       - EMAIL_HOST_USER=palivosedlacek@gmail.com
       - EMAIL_HOST_PASSWORD=drhs unov rmyw ixvu
-      - CSV_FILE_PATH=/vol/web/Cenik.csv
+      - CSV_FILE_PATH=/vol/web/price-list/Cenik.csv
       - DEBUG=0
     restart: always
       
@@ -25,7 +26,7 @@ services:
       - certbot-web:/vol/www
       - certbot-certs:/etc/letsencrypt
     environment:
-      - DOMAIN=palivosedlacek
+      - DOMAIN=palivosedlacek.cz
     ports:
       - "80:80"
       - "443:443"

@@ -9,11 +9,10 @@ COPY ./scripts /scripts
 RUN addgroup app && adduser -S -G app app
 RUN mkdir -p /vol/web/static
 RUN mkdir -p /vol/web/media
+RUN mkdir -p /vol/web/price-list
 RUN chown -R app:app /vol
 # uživatel, který vlastní složku bude mít full přístup a ostatní jen read
 RUN chmod -R 755 /vol/web
-# Překopírujeme CSV file s daty
-COPY ./data/Cenik.csv /vol/web/Cenik.csv
 # Povolíme spouštění scriptů
 RUN chmod +x /scripts/entrypoint.sh
 # Balíčky potřebné pro uwsgi

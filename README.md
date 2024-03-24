@@ -79,24 +79,33 @@
     - The steps above will create an initial certificate for our project. However, the certificate will only be valid for three months, so you’ll need to run the renew command before then
     - `docker-compose run --rm certbot sh -c "certbot renew"` for renew certificate
     - For automation renew  we need use tool like `cron`
-    - We create `renew.sh` script in the home directory of server user `(/home/<user>/renew.sh, for us: /root)` (script will be store in priject folder `scripts`) and then allowed perrmission `chmod +x renew.sh`:
+    - We have template for `renew.sh` script in directory `scripts` which one we must edit
+    - And then allowed perrmission `chmod +x renew.sh`:
 
   ```
   #!/bin/sh
   set -e
 
-  cd /home/<user>/<project_name>
-  /usr/local/bin/docker-compose --rm certbot certbot renew
+  cd <path_to_project_folder>
+  docker-compose run --rm certbot certbot renew
   ```
 
 14. Afterthat we must specify by tool `cron` to execute this script repeatedly at a given time
     - `crontab -l` -> display list of all cron jobs
-    - `crontab e` -> edit cron  jobs
-    - We need to add `0 0 * */ * sh /root/renew.sh` to renew certificate every month
-    - or for example `0 0 * * 6 sh /root/renew.sh` for weekly renew at midnight 
+    - `crontab -e` -> edit cron  jobs
+    - We need to add `0 0 * */ * sh <path_to_renew.sh>` to renew certificate automaticaly
+    - For example `0 0 * */ * sh /root/renew.sh` to renew certificate every month
+    - For example `0 0 * * 6 sh /root/renew.sh` for weekly renew at midnight 
 
 
 ## App edit
-- We can edit our app localy and then push  changes into Github repo
+- We can edit our app localy and then push changes into Github repo
 - Then we need redeploy app again -> Clone repository and deploy app
-- When 
+
+### Price list edit/change
+- We can do that by `SCP (Secure copy)`
+- `scp <file> <user>@<server_ip_address>:<absolute_path_to_old_price-list>`
+- For example: `scp Cenik.csv root@64.226.69.165 /root/web-palivosedlacek/data/Cenik.csv`
+- New price list file must be named exatly `Cenik.csv`
+- It is posible because of volume definition in `docker-compose.yml` file for our service `app` : `./data:/vol/web/price-list` -> app always take price list from `data` directory
+- We need always turn off out website containers and then start up again
