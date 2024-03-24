@@ -1,0 +1,4 @@
+web/db.sqlite3
+web/web/__pycache__
+web/website/__pycache__
+.dockerignore

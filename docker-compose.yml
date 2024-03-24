@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - static-files:/vol/web
+    environment:
+      - SECRET_KEY=q2rc=2=wmn^(^=210vz!hon+vw@$bd!+hf&@zj1g2xowz77=m*
+      - ALLOWED_HOSTS=palivosedlacek.cz,palivosedlacek.cz
+      - EMAIL_HOST=smtp.gmail.com
+      - EMAIL_HOST_USER=palivosedlacek@gmail.com
+      - EMAIL_HOST_PASSWORD=drhs unov rmyw ixvu
+      - CSV_FILE_PATH=/vol/web/Cenik.csv
+      - DEBUG=0
+    restart: always
+      
+  proxy:
+    build:
+      context: ./docker/proxy
+    volumes:
+      - static-files:/vol/static
+      - proxy-dhparams:/vol/proxy
+      - certbot-web:/vol/www
+      - certbot-certs:/etc/letsencrypt
+    environment:
+      - DOMAIN=palivosedlacek
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    restart: always
+
+  certbot:
+    build:
+      context: ./docker/certbot
+    command: echo "Skipping..."
+    environment:
+      - EMAIL=palivosedlacek@gmail.com
+      - DOMAIN=palivosedlacek.cz
+    volumes:
+      - certbot-web:/vol/www
+      - certbot-certs:/etc/letsencrypt
+    depends_on:
+      - proxy
+    
+volumes:
+  certbot-web:
+  certbot-certs:
+  static-files:
+  proxy-dhparams:

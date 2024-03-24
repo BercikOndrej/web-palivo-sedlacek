@@ -1,0 +1,755 @@
+/* Definice globálních proměnnáých */
+:root {
+  /* Barvy */
+  --color-main: #306B39;
+  --color-background: #F7F4EE;
+  --color-text: #555555;
+  --color-deviders: #eeeeee;
+  --color-border-form: #bbbbbb;
+  --color-logo-background: #CFD9CF;
+  --opacity-size: 0.25;
+
+  /* Mezery */
+  --section-and-page-gap: 4vw;
+  --border-width: 2px
+
+}
+
+/* Globální definování stylu + font */
+body {
+  margin: auto;
+  padding: 0em;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5;
+  font-weight: 200;
+}
+
+/* Tloušťka nadpisů */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 900;
+}
+
+/* Barva textu */
+.text-color {
+  color: var(--color-text);
+}
+
+/* Barva nadpisů */
+.title-color {
+  color: var(--color-title);
+}
+
+/* Nadpisy jednotlivých sekcí */
+.section-title__background::after {
+  content: " ";
+  display: block;
+  border: solid 1px;
+  color: var(--color-main);
+  background-color: var(--color-main);
+  opacity: var(--opacity-size);
+  z-index: -1;
+  border-radius: 50%;
+  position: absolute;
+  top: -0.4em;
+  left: -0.5em;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+/* Musím nadpis zároveň přenést na nejpřednější vrstvu */
+.section-title__background {
+  z-index: 1;
+  position: relative;
+}
+
+/* Oddělovač sekcí */
+.section-devider {
+  height: 0.5em;
+  background-image: url("border-dark.webp");
+  background-size: contain;
+}
+
+/* Pozadí částí stránky */
+.background-color {
+  background-color: var(--color-background);
+  padding: 0em;
+}
+
+/* Konteiner pro všechny sekce -> zajišťuje umístění nadpisu  + jak se bude chovat z různou šířkou*/
+.section-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Flexibilita nadpisů + rozdělovače */
+@media (min-width: 360px) {
+  .section-container {
+    margin: 0 var(--section-and-page-gap);
+    padding:
+      var(--section-and-page-gap)
+      0
+      0
+      0;
+  }
+
+  .section-devider {
+    margin:
+      var(--section-and-page-gap)
+      var(--section-and-page-gap)
+      0
+      var(--section-and-page-gap);
+  }
+}
+
+@media (min-width: 1200px) {
+  .section-container {
+    max-width: 1140px;
+    margin:
+      0em auto;
+  }
+
+  .section-devider {
+    margin: var(--section-and-page-gap) auto 0 auto;
+    max-width: 1140px;
+  }
+}
+
+/* ----------------------------------------------------------------------------- */
+/* V jednotlivých sekcí nastavuji základní informace */
+
+/* ------------------------------------------------- */
+/* Hlavička */
+
+/* Obecné */
+/* Pozadí */
+.header__background {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Kontejner pro hlavičku */
+.header {
+  margin: 
+    var(--section-and-page-gap)
+    var(--section-and-page-gap)
+    1em
+    var(--section-and-page-gap);
+}
+
+.header__introducing-text {
+  margin: 0;
+  font-weight: 400;
+}
+
+.header__title-group {
+  margin: 0;
+  line-height: 1;
+}
+
+.title-group__main-title {
+  margin: inherit;
+  font-size: 4em;
+  max-width: 80%;
+}
+
+.title-group__subtitle {
+  color: var(--color-main);
+  font-size: 1.5em;
+  max-width: 65%;
+  margin: inherit;
+  font-weight: 900;
+} 
+
+/* Odkazy na sekce */
+.nav__item--link {
+  text-decoration: none;
+  height: 100%;
+  color: var(--color-title);
+}
+
+/* Flexibilita sekce */
+@media (min-width: 360px) {
+  /* Menu */
+  .header__nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1em;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  /* Item menu -> oblast kliknutí bude celý obdelník (díky flexboxu) */
+  .nav__item {
+    display: flex;
+    text-align: center;
+    border-radius: 0.3em;
+    flex: 1;
+    height: 3em;
+    background-color: var(--color-logo-background);
+  }
+
+  /* Link na menu */
+  .nav__item--link {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Úprava loga */
+  .header__logo {
+    display: none;
+  }
+}
+
+@media (min-width: 560px) {
+  /* Musím změnit menu +  jeho položky */
+  .nav__item {
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 0em;
+    padding: 0em;
+    background-color: initial;
+    color: var(--color-text);
+    height: 2em;
+  }
+  
+  /* Seznam v menu */
+  .header__nav {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    padding: 0em;
+    margin-top: 2em;
+    max-width: 75%;
+  }
+
+  .nav__item--link {
+    display: block;
+    text-align: center;
+    flex: 0;
+    position: relative;
+  }
+
+  /* Animace menu itemů */
+  .nav__item--link::after {
+    content: "";
+    position: absolute;
+    background-color: var(--color-main);
+    height: 3px;
+    left: 0;
+    width: 0 ;
+    bottom: -5px;
+    transition: 0.5s;
+  }
+
+  .nav__item--link:hover::after {
+    width: 150%;
+  }
+
+  .nav__item--link:hover {
+    color: var(--color-main);
+    transition: 0.5s;
+  }
+
+  /* Velikost nadpisů  + odsazení*/
+  .title-group__main-title {
+    max-width: 100%;
+  }
+  
+  .title-group__subtitle {
+    max-width: 56%;
+  }
+}
+
+@media (min-width: 960px) {
+  /* Změna marginu hlavičky + rozložení */
+  .header {
+    display: flex;
+    flex-direction: row;
+    margin:
+    var(--section-and-page-gap)
+    var(--section-and-page-gap) 
+    0em
+    var(--section-and-page-gap);
+  }
+
+  /* Změna šířky nadpisů a menu */
+  .header__nav {
+    max-width: 75%;
+    margin-top: 4em;
+  }
+
+  .title-group__subtitle {
+    max-width: 60%;
+  }
+
+  /* Pozadí v hlavičce za avatarem */
+  .header__logo--background {
+    background-color: var(--color-main);
+    opacity: var(--opacity-size);
+    width: 1300px;
+    height: 1300px;
+    border-radius: 50%;
+    position: absolute;
+    left: 55vw;
+    bottom: -450px;
+    display: block;
+    z-index: -1;
+  }
+
+  /* Zviditelnění loga */
+  .header__logo {
+    display: block;
+    margin-left: auto;
+    height: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .header {
+    max-width: 1140px;
+    margin: var(--section-and-page-gap) auto 0em auto;
+  }
+}
+
+/* --------------------------------------------------------------------------------- */
+/* Sekce O nás */
+
+/* Obecné */
+/* Kontejner pro celou sekci */
+.section-container--about {
+  /* padding-top: 2em; */
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  padding-top: var(--section-and-page-gap);
+}
+
+/* Kontejner pro logo */
+.container--about__container--image {
+  margin: auto;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+}
+
+/* Logo */
+.container--image__logo {
+  border-radius: 50%;
+  background-color: var(--color-logo-background);
+  width: 20em;
+  object-fit: cover;
+  margin-top: 2em;
+}
+
+/* Foto */
+.container--image__photo {
+  display: none;
+  border-radius: 1em;
+  background-color: var(--color-main);
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  width: 20em;
+  height: 12em;
+}
+
+/* Label loga */
+.container--image__label {
+  text-align: center;
+  font-weight: 900;
+  font-size: 2em;
+  margin-top: 0em;
+}
+
+/* Odstavec textu */
+.container--text__text {
+  margin: 0em 0em 1em 0em;
+}
+
+/* Odstavec textu */
+.container--text__text--last {
+  margin: 0em;
+}
+
+.container--text__title {
+  margin-bottom: 0em;
+}
+
+/* Flexibilita */
+/* Od 360px do 960px  */
+
+@media (min-width: 960px) {
+  /* Změna loga na 2 fotky */
+  .container--image__logo {
+    display: none;
+  }
+
+  .container--image__label {
+    display: none;
+  }
+
+  .container--image__photo {
+    display: block;
+  }
+
+  /* Změna layoutu loga a textu */
+  .section-container--about {
+    flex-direction: row;
+    gap: 2em;
+  }
+}
+
+/* -------------------------------------------------------- */
+/* Sekce ceník */
+/* Obecné */
+
+/* Obecný kontejner flexbox */
+.section-container--price-list__container--wood-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(0em, 1fr));
+  gap: 1em;
+  max-width: 1140px;
+  margin-bottom: 2em;
+}
+
+/* Karta v sekci ceníku */
+.container--wood-items__card {
+  border-radius: 1em;
+  background-color: white;
+  border: #555555 solid 0px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Fotka uvnitř karty */
+.card__image {
+  flex: 1;
+  width: 100%;
+  aspect-ratio: 16/9;
+  margin: auto;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+}
+
+/* Text v kartě */
+.card__info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1em;
+}
+
+/* Nadpis */
+.info__title {
+  margin: inherit;
+}
+
+/* Podnadpis */
+.info__title--secondary {
+  font-size: 0.9em;
+  font-weight: 200;
+}
+
+/* Kontejner pro ceník */
+.info__container-price {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+/* Itemy ceníku */
+.container-price__item {
+  margin: 0;
+}
+
+/* Kontejner pro správné zobrazení slevy -> dvou cen */
+.item__container-discount {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+}
+
+/* css pravidlo dědící margin 0 */
+.container-discount__price {
+  margin: inherit;
+}
+
+/* Stará cena bude přeškrtlá */
+.container-discount__price--old {
+  font-size: 0.8em;
+  text-decoration: line-through;
+}
+
+/* Nová cena bude červeně */
+.container-discount__price--new {
+  color: red;
+}
+
+/* Nadpisy */
+.container-price__item--label {
+  font-weight: 900;
+}
+
+/* Úpravy na akce/slevy */
+/* Jakmile bude něco v akci, tak to v html odkomentuju */
+.card__discount-label {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  border-radius: 1em;
+  padding: 0 1em;
+  color: yellow;
+  background-color: red;
+}
+
+/* -------------------------------------------------------- */
+/* Sekce galerie */
+/* Obecné */
+.section-container__container--galery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(0em, 1fr));
+  gap: 1em;
+  max-width: 1140px;
+  margin-bottom: 2em;
+}
+
+.container--galery__item {
+  width: 100%;
+  border-radius: 1em;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  margin: auto;
+}
+
+
+/* -------------------------------------------------------- */
+/* Sekce kontakt */
+/* Obecné */
+.section-container--contact {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.container--contact__container--address-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Jeden řádek u adress bude flexbox */
+.container--address-info__row {
+  display: flex;
+  flex-direction: row;
+  height: 3em;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+/* Ikony pro jednotlivé popisky */
+.row__icon {
+  width: 2em;
+  margin: 0em 0.25em;
+}
+
+.row__icon--mail {
+  width: 2.5em;
+  position: relative;
+  left: -0.25em;
+}
+
+/* Label u ikon */
+.row__label {
+  font-weight: 900;
+  color: var(--color-title);
+  display: inline;
+  margin: auto 1.5em;
+  text-decoration: none;
+}
+
+.row__label--mail {
+  margin-left: 1em;
+}
+
+/* Formulář */
+.container--contact__container--form {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+}
+
+.container--form__item {
+  color: var(--color-text);
+  border: var(--border-width) solid var(--color-border-form);
+  padding: 1em;
+  font-family: 'Roboto', serif;
+  border-radius: 1em;
+}
+
+/* Rozmístění prvků */
+.container--form__item--first-name {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+}
+
+.container--form__item--second-name {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+}
+
+.container--form__item--email {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+}
+
+.container--form__item--phone {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+}
+
+.container--form__item--subject {
+  grid-row: 3 / 4;
+  grid-column: 1 / 3;
+}
+
+.container--form__item--message {
+  grid-row: 4 / 6;
+  grid-column: 1 / 3;
+}
+
+.container--form__item--button {
+  grid-row: 6 / 7;
+  grid-column: 1 / 2;
+  color: white;
+  background-color: black;
+  font-weight: 900;
+  border-radius: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+.container--form__item--button:hover {
+  background-color: var(--color-background);
+  color: var(--color-main);
+  border: solid var(--color-main) var(--border-width);
+}
+
+/* Info zpráva */
+.container--form__item--info-message {
+  grid-row: 6 / 7;
+  grid-column: 2 / 3;
+  display: none;
+  font-weight: 900;
+  color: var(--color-main);
+  text-align: center;
+  font-size: 13.3333px;
+  margin-bottom: 1em;
+  padding: 1em;
+  margin-top: 0em;
+  border: none;
+}
+
+/* Vizualizace vybraného prvku */
+.container--form__item:focus {
+  outline-color: var(--color-main);
+}
+
+/* Mapa */
+.container--contact__map {
+  margin-top: 1em;
+  border: var(--border-width) var(--color-border-form) solid;
+}
+
+/* Zajištění správné velikosti mapy */
+.map__frame {
+  width: 100%;
+}
+
+/* Flexibilita */
+@media (min-width: 960px) {
+  /* Změna layoutu */
+  .section-container--contact {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .container--contact__item {
+    flex: 1;
+  }
+
+  .section-container--contact__help-text {
+    max-width: 80%;
+    margin: 4em 0em;
+  }
+}
+
+/* Utilita pro kontaktní sekci
+ */
+.padding-bottom-1 {
+  padding-bottom: 1em;
+}
+
+/* -------------------------------------------------------- */
+/* Sekce patička */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  padding: 1em 0;
+  max-width: 1140px;
+  margin: 0 var(--section-and-page-gap);
+}
+
+.footer__item {
+  margin: 0;
+  text-align: center;
+}
+
+.footer__item--fb-icon {
+  width: 2em;
+  height: 2em;
+  height: 100%;
+  position: relative;
+  bottom: -5px;
+}
+
+/* Flexibilita */
+@media (min-width: 560px) {
+  .footer {
+    flex-direction: row;
+    justify-self: start;
+    gap: 0;
+  }
+
+  .footer__item--text {
+    margin-left: auto;
+    border-right: var(--border-width) solid var(--color-text);
+  }
+
+  .footer__item {
+    padding: 0 0.5em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .footer {
+    max-width: 1140px;
+    margin: 0em auto;
+  }
+}

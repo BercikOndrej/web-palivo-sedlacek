@@ -1,0 +1,442 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <!-- Import písma Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+  <!-- Logo do záložek -->
+  <link rel="shortcut icon" href="{% static 'website/Shortcut-icon.svg' %}" type="image/x-icon">
+  <!-- Responzivní design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'website/style.css' %}">
+  <meta charset="UTF-8">
+  <meta name="author" content="Ondřej Berčík">
+  <meta name="keywords" content="palivové štípané dřevo Kroměříž">
+  <meta name="description" content="Palivo Sedláček - prodej palivového štípaného dřeva" >
+  <title>Palivo Sedláček</title>
+</head>
+
+<body>
+
+  <!-- Hlavička celé stránky -->
+  <header class="header__background" role="banner">
+    <div class="header">
+      <div class="header__logo--background"></div>
+
+      <div class="header__intro">
+        <p class="header__introducing-text text-color">Regionální firma</p>
+        <hgroup class="header__title-group">
+          <h1 class="title-group__main-title title-color">Palivo Sedláček</h1>
+          <p class="title-group__subtitle title-color">Výroba a prodej suchého kvalitního palivového dříví</p>
+        </hgroup>
+
+        <!-- Navigace pro celou stránku -->
+        <nav role="navigation">
+          <ul class="header__nav">
+            <li class="nav__item">
+              <a class="nav__item--link" href="#section--about" role="link">O nás</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__item--link" href="#section--price-list" role="link">Ceník</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__item--link" href="#section--galery" role="link">Galerie</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__item--link" href="#section--contact" role="link">Kontakt</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Logo -->
+      <img class="header__logo" src="{% static 'website/Logo.svg' %}" alt="Logo" role="img" width="300" height="0">
+    </div>
+  </header>
+
+	<!-- Jednotlivé sekce -->
+  <main>
+    <!-- Sekce o nás -->
+    <div class="background-color">
+      <section class="section-container section-container--about" id="section--about">
+        <div class="container--about__container--image">
+          <img class="container--image__photo" src="{% static 'website/Intro-photo-1.webp' %}" alt="Úvodní foto 1" width="0" height="0" loading="lazy">
+          <img class="container--image__photo" src="{% static 'website/Intro-photo-2.webp' %}" alt="Úvodní foto 2" width="0" height="0" loading="lazy">
+          <img class="container--image__logo" src="{% static 'website/Logo.webp' %}" alt="Logo firmy">
+          <p class="container--image__label">Palivo Sedláček</p>
+        </div>
+    
+        <div class="container--about__container--text">
+          <h2 class="title-color section-title__background container--text__title">O nás</h2>
+          <p class="text-color container--text__text">
+            Jsme regionální firma s více jak 20 letou tradicí. Zabývající se výrobou a prodejem zejména suchého kvalitního
+            palivového dříví. Nabízíme měkké a tvrdé listnaté dříví v délkách dle vašich požadavků. S výběrem ideálního
+            druhu dřeva
+            Vám rádi poradíme. Po telefonické domluvě Vás rádi uvítáme i mimo otevírací dobu.
+          </p>
+          <p class="text-color container--text__text">
+            U nás najdete suché dříví, které Vám poskytne teplo ihned po doručení. Stejně tak dříví k doplnění zásob ve
+            Vašem
+            dřevníku na nadcházející topné sezóny.
+          </p>
+          <p class="text-color container--text__text">
+            Samozřejmě můžete být přímo u expedice Vaší objednávky a na místě se tak ujistit o správné kvalitě a množství.
+          </p>
+          <p class="text-color container--text__text">
+            Metrové dříví skladujeme rovnané v hráních, polínka v klecích. Zákazník má takto stoprocentní jistotu, že
+            kupované dříví
+            odpovídá požadovanému množství.
+          </p>
+          <p class="text-color container--text__text container--text__text--last">
+            Pro porovnání s konkurencí uvádíme ceny jak za prostorový metr sypaný, tak i za prostorový metr rovnaný. Obecně
+            platí,
+            že z 1 <abbr title="prostorový metr">prm</abbr> sypaného poskládáte 0,61 <abbr
+            title="prostorový metr">prm</abbr> rovnaného.
+          </p>
+        </div>
+      </section>
+    
+      <div class="section-devider"></div>
+    
+      <!-- Sekce ceník -->
+      <section class="section-container" id="section--price-list">
+        <h2 class="title-color section-title__background">Ceník</h2>
+        <p class="text-color">
+          <strong>POZOR AKCE!</strong>
+          <br>
+          Od <time datetime="2024-01-01">1. 1. 2024</time> nabízíme <em>SUCHÉ</em> palivové dříví <em>dub, bříza nebo měkké listnaté</em> za zvýhodněné ceny. Využijte této jedinečné nabídky k doplnění Vašich zásob za příznivou cenu. Akce platí do vyprodání zásob.
+        </p>
+
+        <div class="section-container--price-list__container--wood-items">
+          <!-- Jednotlivé karty -->
+
+        {% for item in wood_items %}
+          <!-- První kartička pro skládané -->
+          <div class="container--wood-items__card">
+            
+            <!-- Promítnutí slevy -->
+            {% if item.sleva_skl != "null" %}
+              <div class="card__discount-label">AKCE</div>
+            {% endif %}
+
+            <img class="card__image" src="{% static 'website/cenik-skladane.webp' %}" alt="Foto skládaného dřeva" width="0" height="0"
+              loading="lazy">
+            <div class="card__info">
+              <h3 class="info__title title-color">{{item.name}}</h3>
+              <p class="text-color info__title info__title--secondary">{{item.wood_type}} skládané dřevo</p>
+              <div class="info__container-price">
+          
+                <!-- Nadpisy -->
+                <p class="container-price__item container-price__item--label title-color">Míra</p>
+                <p class="container-price__item container-price__item--label title-color">Cena</p>
+          
+                <!-- Info vžy míra a cenna -->
+                <p class="text-color container-price__item">25 cm</p>
+                <div class="item__container-discount container-price__item">
+                  <!-- Promítnutí slevy -->
+                  {% if item.sleva_skl != "null" %}
+                    <p class="text-color container-discount__price container-discount__price--old">{{ item.skl_25|safe }} Kč</p>
+                    <p class="text-color container-discount__price container-discount__price--new">{{ item.skl_25_disc|safe }} Kč</p>
+                  <!-- Jinak nic -->
+                  {% else %}
+                    <p class="text-color container-discount__price"> {{ item.skl_25 }} Kč</p>
+                  {% endif %}
+                </div>
+          
+                <p class="text-color container-price__item">33 cm</p>
+                <div class="item__container-discount container-price__item">
+                  <!-- Promítnutí slevy -->
+                  {% if item.sleva_skl != "null" %}
+                    <p class="text-color container-discount__price container-discount__price--old">{{ item.skl_33|safe }} Kč</p>
+                    <p class="text-color container-discount__price container-discount__price--new">{{ item.skl_33_disc|safe }} Kč</p>
+                  <!-- Jinak nic -->
+                  {% else %}
+                    <p class="text-color container-discount__price"> {{ item.skl_33 }} Kč</p>
+                  {% endif %}
+                </div>
+          
+                <p class="text-color container-price__item">50 cm</p>
+                <div class="item__container-discount container-price__item">
+                  <!-- Promítnutí slevy -->
+                  {% if item.sleva_skl != "null" %}
+                    <p class="text-color container-discount__price container-discount__price--old">{{ item.skl_50|safe }} Kč</p>
+                    <p class="text-color container-discount__price container-discount__price--new">{{ item.skl_50_disc|safe }} Kč</p>
+                  <!-- Jinak nic -->
+                  {% else %}
+                    <p class="text-color container-discount__price"> {{ item.skl_50 }} Kč</p>
+                  {% endif %}
+                </div>
+          
+                <p class="text-color container-price__item">100 cm</p>
+                <div class="item__container-discount container-price__item">
+                  <!-- Promítnutí slevy -->
+                  {% if item.sleva_skl != "null" %}
+                    <p class="text-color container-discount__price container-discount__price--old">{{ item.skl_100|safe }} Kč</p>
+                    <p class="text-color container-discount__price container-discount__price--new">{{ item.skl_100_disc|safe }} Kč</p>
+                  <!-- Jinak nic -->
+                  {% else %}
+                    <p class="text-color container-discount__price"> {{ item.skl_100 }} Kč</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Druhá kartička sypané -->
+          <div class="container--wood-items__card">
+            <!-- Promítnutí slevy -->
+            {% if item.sleva_skl != "null" %}
+              <div class="card__discount-label">AKCE</div>
+            {% endif %}  
+            <img class="card__image" src="{% static 'website/cenik-sypane.webp' %}" alt="Foto sypaneého dřeva" width="0" height="0"
+              loading="lazy">
+            <div class="card__info">
+              <h3 class="info__title title-color">{{ item.name }}</h3>
+              <p class="text-color info__title info__title--secondary">{{ item.wood_type }} sypané dřevo</p>
+              <div class="info__container-price">
+          
+                <!-- Nadpisy -->
+                <p class="container-price__item container-price__item--label title-color">Míra</p>
+                <p class="container-price__item container-price__item--label title-color">Cena</p>
+          
+                <!-- Info vžy míra a cenna -->
+                <p class="text-color container-price__item">25 cm</p>
+                <div class="item__container-discount container-price__item">
+                  <!-- Promítnutí slevy -->
+                  {% if item.sleva_skl != "null" %}
+                    <p class="text-color container-discount__price container-discount__price--old">{{ item.syp_25|safe }} Kč</p>
+                    <p class="text-color container-discount__price container-discount__price--new">{{ item.syp_25_disc|safe }} Kč</p>
+                  <!-- Jinak nic -->
+                  {% else %}
+                    <p class="text-color container-discount__price"> {{ item.syp_25 }} Kč</p>
+                  {% endif %}
+                </div>
+          
+                <p class="text-color container-price__item">33 cm</p>
+                <div class="item__container-discount container-price__item">
+                  <!-- Promítnutí slevy -->
+                  {% if item.sleva_skl != "null" %}
+                    <p class="text-color container-discount__price container-discount__price--old">{{ item.syp_33|safe }} Kč</p>
+                    <p class="text-color container-discount__price container-discount__price--new">{{ item.syp_33_disc|safe }} Kč</p>
+                  <!-- Jinak nic -->
+                  {% else %}
+                    <p class="text-color container-discount__price"> {{ item.syp_33 }} Kč</p>
+                  {% endif %}
+                </div>
+          
+                <p class="text-color container-price__item">50 cm</p>
+                <div class="item__container-discount container-price__item">
+                  <!-- Promítnutí slevy -->
+                  {% if item.sleva_skl != "null" %}
+                  <p class="text-color container-discount__price container-discount__price--old">{{ item.syp_50|safe }} Kč</p>
+                  <p class="text-color container-discount__price container-discount__price--new">{{ item.syp_50_disc|safe }} Kč</p>
+                  <!-- Jinak nic -->
+                  {% else %}
+                  <p class="text-color container-discount__price"> {{ item.syp_50 }} Kč</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        <!-- Piliny -->
+        <div class="container--wood-items__card">
+          <img class="card__image" src="{% static 'website/cenik-piliny.webp' %}" alt="Foto pilin" width="0"
+            height="0" loading="lazy">
+          <div class="card__info">
+            <h3 class="info__title title-color">Piliny</h3>
+            <p class="text-color info__title info__title--secondary">Prodávané po prm</p>
+            <div class="info__container-price">
+        
+              <!-- Nadpisy -->
+              <p class="container-price__item container-price__item--label title-color">Míra</p>
+              <p class="container-price__item container-price__item--label title-color">Cena</p>
+        
+              <!-- Info vžy míra a cenna -->
+              <p class="text-color container-price__item">1 prm</p>
+              <div class="item__container-discount container-price__item">
+                <p class="text-color container-discount__price"> 50 Kč</p>
+              </div>
+        
+              <p class="text-color container-price__item"> </p>
+              <div class="item__container-discount container-price__item">
+                <p class="text-color container-discount__price"> </p>
+              </div>
+        
+              <p class="text-color container-price__item"> </p>
+              <div class="item__container-discount container-price__item">
+                <p class="text-color container-discount__price"> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paleta -->
+        <div class="container--wood-items__card">
+          <img class="card__image" src="{% static 'website/cenik-paleta.webp' %}" alt="Foto prázdné palety na dřevo" width="0" height="0"
+            loading="lazy">
+          <div class="card__info">
+            <h3 class="info__title title-color">Paleta</h3>
+            <p class="text-color info__title info__title--secondary">Prázdná na dřevo</p>
+            <div class="info__container-price">
+        
+              <!-- Nadpisy -->
+              <p class="container-price__item container-price__item--label title-color">Míra</p>
+              <p class="container-price__item container-price__item--label title-color">Cena</p>
+        
+              <!-- Info vžy míra a cenna -->
+              <p class="text-color container-price__item">1 kus</p>
+              <div class="item__container-discount container-price__item">
+                <p class="text-color container-discount__price"> 400 Kč</p>
+              </div>
+        
+              <p class="text-color container-price__item"> </p>
+              <div class="item__container-discount container-price__item">
+                <p class="text-color container-discount__price"> </p>
+              </div>
+        
+              <p class="text-color container-price__item"> </p>
+              <div class="item__container-discount container-price__item">
+                <p class="text-color container-discount__price"> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+        </div>
+        <p class="text-color ">Ceny jsou uvedeny včetně 21% DPH</p>
+      </section>
+    
+    </div>
+  </main>
+
+  <!-- Sekce galerie -->
+  <section class="section-container" id="section--galery">
+    <h2 class="title-color section-title__background">Galerie</h2>
+    <div class="section-container__container--galery">
+      <img class="container--galery__item" src="{% static 'website/capka1.webp' %}" alt="Foto z galerie" loading="lazy">
+      <img class="container--galery__item" src="{% static 'website/capka2.webp' %}" alt="Foto z galerie" loading="lazy">
+      <img class="container--galery__item" src="{% static 'website/capka3.webp' %}" alt="Foto z galerie" loading="lazy">
+      <img class="container--galery__item" src="{% static 'website/capka4.webp' %}" alt="Foto z galerie" loading="lazy">
+      <img class="container--galery__item" src="{% static 'website/capka5.webp' %}" alt="Foto z galerie" loading="lazy">
+      <img class="container--galery__item" src="{% static 'website/capka6.webp' %}" alt="Foto z galerie" loading="lazy">
+      <img class="container--galery__item" src="{% static 'website/capka7.webp' %}" alt="Foto z galerie" loading="lazy">
+      <img class="container--galery__item" src="{% static 'website/capka8.webp' %}" alt="Foto z galerie" loading="lazy">
+      <img class="container--galery__item" src="{% static 'website/capka9.webp' %}" alt="Foto z galerie" loading="lazy">
+    </div>
+  </section>
+
+  <!-- Sekce kontakt -->
+  <div class="background-color">
+    <section class="section-container section-container padding-bottom-1" id="section--contact">
+      <h2 class="title-color section-title__background">Kontakt</h2>
+      
+      <div class="section-container--contact">
+        <div class="container--contact__item">
+          <p class="text-color section-container--contact__help-text">
+            Potřebujete pomoci s výběrem, nebo se zeptat na naší aktuální nabídku? Zavolejte nám nebo nás kontaktujte pomocí
+            formuláře,
+            rádi Vám poradíme a zodpovíme Vaše dotazy.
+          </p>
+        
+          <!-- Kontaktní informace -->
+          <address class="container--contact__container--address-info">
+            <!-- Pracovní doba -->
+            <div class="container--address-info__row">
+              <img class="row__icon" src="{% static 'website/clock.svg' %}" alt="Icona map marker" width="40" height="40">
+              <p class="row__label">
+                Po - Pá: <time datetime="PT4H0M0S">7:00 - 11:00</time> 
+            </p>
+            </div>
+            <!-- Adresa -->
+            <div class="container--address-info__row">
+              <img class="row__icon" src="{% static 'website/map-marker.svg' %}" alt="Icona map marker" width="40" height="40">
+              <a class="row__label"
+                href="https://www.google.com/maps/place/Palivo+Sedláček+s.r.o./@49.2931742,17.4107919,17z/data=!3m1!4b1!4m6!3m5!1s0x4713073969cb37f9:0x34b81dad4e7f5d40!8m2!3d49.2931742!4d17.4133668!16s%2Fg%2F11tmn96flh?entry=ttu"
+                target="_blank">
+                Na Hrázi, 767 01 Kroměříž 1
+              </a>
+            </div>
+            <!-- Mail -->
+            <div class="container--address-info__row">
+              <img class="row__icon row__icon--mail" src="{% static 'website/mail.svg' %}" alt="Icona map marker" width="40px"
+                height="40px">
+              <a class="row__label row__label--mail" href="mailto:palivosedlacek@gmail.com">
+                palivosedlacek@gmail.com
+              </a>
+            </div>
+            <!-- Mobil -->
+            <div class="container--address-info__row">
+              <img class="row__icon" src="{% static 'website/mobile.svg' %}" alt="Icona map marker" width="40"
+                height="40">
+              <a class="row__label" href="tel:+420606740783">
+                +420 606 740 783
+              </a>
+            </div>
+          </address>
+        </div>
+
+        <!-- Formulář i s nadpisem -->
+        <div class="container--contact__item">
+          <h3 class="title-color">Kontaktujte nás</h3>
+          <form class="container--contact__container--form" action="{% url 'website:index' %}" method="post" id="contact-form">
+            {% csrf_token %}
+            <input class="container--form__item container--form__item--first-name" name="first-name" type="text" placeholder="Jméno" required>
+            <input class="container--form__item container--form__item--second-name" name="last-name" type="text" placeholder="Příjmení" required>
+            <input class="container--form__item container--form__item--email" name="email" type="email" placeholder="Email " required>
+            <input class="container--form__item container--form__item--phone" name="phone-number" type="tel" placeholder="Telefon" required>
+            <input class="container--form__item container--form__item--subject" name="subject" type="text" placeholder="Předmět" required>
+            <textarea class="container--form__item container--form__item--message" name="message" rows="7" placeholder="Zpráva" required></textarea>
+            <button class="container--form__item--button" id="send-button" type="submit">Odeslat</button>
+            <p id="form__info-message" class="container--form__item--info-message container--form__item">Odesláno!</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Mapa -->
+      <map class="container--contact__map" name="Kromeriz-map">
+        <iframe class="map__frame" title="mapa"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10738.240057441111!2d17.40525044606186!3d49.29313429495788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4713073969cb37f9%3A0x34b81dad4e7f5d40!2sPalivo%20Sedl%C3%A1%C4%8Dek%20s.r.o.!5e0!3m2!1scs!2scz!4v1710338609693!5m2!1scs!2scz"
+          width="0" height="300" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </map>
+    </section>
+  </div>
+
+  <!-- Patička stránky -->
+  <footer class="footer">
+      <a href="https://www.facebook.com/profile.php?id=100088580823531" target="_blank" role="link">
+        <img class="footer__item--fb-icon" src="{% static 'website/facebook-square.svg' %}" alt="facebook icon" width="0" height="0" loading="lazy">
+      </a>
+    <p class="text-color footer__item footer__item--text">
+      COPYRIGHT &#169; 2024 PALIVOSEDLACEK.CZ
+    </p>
+    <p class="text-color footer__item">
+      Berčík Ondřej
+    </p>
+
+    {% if success == 1 %}
+      <script>
+        var info_message = document.getElementById("form__info-message");
+        info_message.style.display = 'block';
+        info_message.innerHTML = 'Odesláno!';
+        document.getElementById("contact-form").scrollIntoView({ behavior: 'smooth' });
+      </script>
+    {% elif success == 0 %}
+      <script>
+        var info_message = document.getElementById("form__info-message");
+        info_message.style.display = 'block';
+        info_message.style.color = 'red';
+        info_message.innerHTML = 'Zpráva neodeslána!';
+        document.getElementById("contact-form").scrollIntoView({ behavior: 'smooth' });
+      </script>
+    {% endif %}
+    
+  </footer>
+</body>
+</html>
