@@ -3,8 +3,8 @@
 ## Technologies
 - Python + Django
 - uWSGI (application server)
-- nginx (proxy server)
-- certbot (for free https certificate)
+- Nginx (proxy server)
+- Certbot (for free https certificate)
 - Docker
 - HTML + CSS (frontend)
 
@@ -41,6 +41,7 @@
 4. Create Certbot for retrieve our first free certificate for HTTPS
     - Certbot will be in `docker` folder same as `proxy`
     - And also we need create [Dockerfile](docker/certbot/Dockerfile) and start script [certify-init.sh](docker/certbot/certify-init.sh)
+    - Here in script we must be careful -> we need specify both `DOMAIN` names: `-d "www.$DOMAIN"` and also `-d "$DOMAIN"`
 
 5. Then we need put all together in [docker-compose.yml](docker-compose.yml)
     - Here we set variables like:
@@ -62,13 +63,13 @@
 9. Before deployment from Github repo we must create `deploy key` on server and configure our Github project to permit cloning with this key
     - `ssh-keygen -t ed25519 -C "GitHub Deploy Key"`
     - `cat ~/.ssh/id_ed25519.pub` and copy the key into the clipboard
-    - put the key into `Settings > Deploy Keys`
+    - Put the key into `Settings > Deploy Keys`
 
 10. Now we can clone our project to our server
 
 11. After cloning we can get our first certificate
     - `docker-compose run --rm certbot /opt/certify-init.sh` -> start certbot to get and download our certificate
-    - after that container ends and our certificate is ready for use
+    - After that container ends and our certificate is ready for use
 
 12. Then we need start our app via HTTPS
     - `docker-compose down`
@@ -109,3 +110,46 @@
 - New price list file must be named exatly `Cenik.csv`
 - It is posible because of volume definition in `docker-compose.yml` file for our service `app` : `./data:/vol/web/price-list` -> app always take price list from `data` directory
 - We need always turn off out website containers and then start up again
+
+## Others staff I don`t know about
+
+### Open Graph Meta Tags (OG tags)
+- These tags provides more visibility and more attention on social media like Twitter, Facebook, LinkedIn and others
+- Tags control how urls are displayed on social media
+- We can find them in `<head>` section of website with `og` prefix
+- Tags are so important
+    - They make website url more clickable and readable
+    - Tell people about website content
+    - They help Facebook understand what the content of website is about -> again better result in researching
+    - Also people may sharing your url as good-looking post on their social media
+- Official [OG tags documentation] describes all posible og tags to use
+- I follow [best practices for using og tags](https://ahrefs.com/blog/open-graph-meta-tags/) 
+
+### Google Search Console
+
+### Add backlinks in our (borthers) Google company/business website
+
+### Adding more keywords
+- We need a lots of words for good searching result of our website
+- We can include names of products too
+
+### Give reading permmisson to UI bots for better research results
+- We must specify file `robots.txt` that say our website is readable by UI bots
+- This file must be available on url `our-domain/robots.txt`
+- Example `palivosedlacek.cz/robots.txt`
+- In our case we defined this by django `url` and `views` pattern
+
+### Enable gzip and gunzip on proxy nginx
+- It is for compress and uncompress text, files and others
+- For our purpose we need just text compression -> In our nginx config files `default-ssl.conf.tpl` and `default.conf.tpl` we inserted:
+```
+server {
+  gzip on;
+  gzip_types      text/plain application/xml;
+  gzip_proxied    no-cache no-store private expired auth;
+  gzip_min_length 1000;
+  gunzip on;
+  ...
+  ...
+}
+```

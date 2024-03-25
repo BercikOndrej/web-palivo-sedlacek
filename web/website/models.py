@@ -78,7 +78,4 @@ class WoodItem:
   #     return rounded_up_number + 10 - last_number
 
   def round_on_decimals(number):
-    return round(number, -1)
-
-  
-  
+    return int(round(number, -1))

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import HttpResponse
+from django.views.decorators.http import require_GET
 from . import models
 import csv
 import os
@@ -14,7 +16,7 @@ def index(request):
     subject = request.POST["subject"]
     message = request.POST["message"]
 
-    message = message + "\n \n \nZprávu poslala osoba jménem \"" + name + "\" pomocí kontaktního formuláře umístěného na webu \"palivo-sedláček\".\n \n"+ "Kontaktní údaje:\nTel: " + phone_number + "\nemail: " + email 
+    message = message + "\n \n \nZprávu poslala osoba jménem \"" + name + "\" pomocí kontaktního formuláře umístěného na webu \"palivosedlacek.cz\".\n \n"+ "Kontaktní údaje:\nTel: " + phone_number + "\nemail: " + email 
     
     success = send_mail(
       subject,
@@ -54,3 +56,11 @@ def get_wood_item_from_csv():
         wood_items.append(item)
         line_count+= 1
   return wood_items
+
+@require_GET
+def robots_txt(request):
+  robots_txt_content = """\
+  User-Agent: * 
+  Allow: / 
+  """
+  return HttpResponse(robots_txt_content, content_type="text/plain")

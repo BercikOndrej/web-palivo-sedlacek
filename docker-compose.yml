@@ -9,7 +9,7 @@ services:
       - ./data:/vol/web/price-list
     environment:
       - SECRET_KEY=q2rc=2=wmn^(^=210vz!hon+vw@$bd!+hf&@zj1g2xowz77=m*
-      - ALLOWED_HOSTS=palivosedlacek.cz,palivosedlacek.cz
+      - ALLOWED_HOSTS=palivosedlacek.cz,www.palivosedlacek.cz
       - EMAIL_HOST=smtp.gmail.com
       - EMAIL_HOST_USER=palivosedlacek@gmail.com
       - EMAIL_HOST_PASSWORD=drhs unov rmyw ixvu
