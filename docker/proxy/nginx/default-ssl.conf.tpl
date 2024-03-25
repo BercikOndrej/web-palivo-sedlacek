@@ -1,9 +1,9 @@
 server {
-  gzip on;
-  gzip_types      text/plain application/xml;
-  gzip_proxied    no-cache no-store private expired auth;
-  gzip_min_length 1000;
-  gunzip on;
+  gzip              on;
+  gzip_disable      "MSIE [1-6]\.(?!.*SV1)";
+  gzip_vary         on;
+  gzip_types        text/plain application/xml text/css text/javascript     image/svg+xml image/x-icon application/javascript application/x-javascript;
+  gunzip            on;
 
   listen 80;
   server_name ${DOMAIN} www.${DOMAIN};
@@ -18,11 +18,11 @@ server {
 }
 
 server {
-  gzip on;
-  gzip_types      text/plain application/xml;
-  gzip_proxied    no-cache no-store private expired auth;
-  gzip_min_length 1000;
-  gunzip on;
+  gzip              on;
+  gzip_disable      "MSIE [1-6]\.(?!.*SV1)";
+  gzip_vary         on;
+  gzip_types        text/plain application/xml text/css text/javascript image/svg+xml image/x-icon application/javascript application/x-javascript;
+  gunzip            on;
 
   listen        443 ssl;
   server_name   ${DOMAIN} www.${DOMAIN};
@@ -38,6 +38,7 @@ server {
 
   location /static {
     alias /vol/static;
+    gzip_static on;
   }
 
   location / {

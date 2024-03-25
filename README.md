@@ -30,6 +30,7 @@
         - serves static files
         - redirect HTTP request to HTTPS
         - forwards requests to uWSGI
+        - manage files and text compression
     - We must create several config files:
         - [default.conf.tpl](docker/proxy/nginx/default.conf.tpl)
         - [default-ssl.conf.tpl](docker/proxy/nginx/options-ssl-nginx.conf)
@@ -69,6 +70,7 @@
 
 11. After cloning we can get our first certificate
     - `docker-compose run --rm certbot /opt/certify-init.sh` -> start certbot to get and download our certificate
+    - `BE CAREFUL`: We cannot requesting certificate more then 5x for the same domain in 168 hours
     - After that container ends and our certificate is ready for use
 
 12. Then we need start our app via HTTPS
@@ -126,6 +128,20 @@
 - I follow [best practices for using og tags](https://ahrefs.com/blog/open-graph-meta-tags/) 
 
 ### Google Search Console
+- Before this we must have good SEO score 
+- We need do this because without it, our website doesn't appeaer in Google search
+- To test if our website is visible for google searching is write `site:<our-domain>` into searching panel on google
+
+1. Step - Verify website ownership in `Google Search Console`
+    - It is done by `TXT` records
+    - Google Search Console generetes TXT records for us and we must put them into our DNS configuration of our domain
+
+2. Step - Index the page you want to appear in Google Search
+    - In our Google Search Console settings we must do `url inspection` where we place our website's url
+    - Then we request Google for indexing our page
+    - This take some time so we has to wait for Google
+
+- After that we can test visibility of our website in Google searching
 
 ### Add backlinks in our (borthers) Google company/business website
 
@@ -141,15 +157,22 @@
 
 ### Enable gzip and gunzip on proxy nginx
 - It is for compress and uncompress text, files and others
-- For our purpose we need just text compression -> In our nginx config files `default-ssl.conf.tpl` and `default.conf.tpl` we inserted:
+- For our purpose we need just text compression and static files compression -> In our nginx config files `default-ssl.conf.tpl` and `default.conf.tpl` we inserted:
 ```
 server {
-  gzip on;
-  gzip_types      text/plain application/xml;
-  gzip_proxied    no-cache no-store private expired auth;
-  gzip_min_length 1000;
-  gunzip on;
+  gzip              on;
+  gzip_disable      "MSIE [1-6]\.(?!.*SV1)";
+  gzip_vary         on;
+  gzip_types        text/plain application/xml text/css text/javascript image/svg+xml image/x-icon application/javascript application/x-javascript;
+  gunzip            on;
+  
   ...
   ...
+  ...
+
+  location /static {
+    alias /vol/static;
+    gzip_static on;
+  }
 }
 ```
