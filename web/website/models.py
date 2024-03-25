@@ -58,7 +58,8 @@ class WoodItem:
     """
     skl_price = WoodItem.separated_str2num(skl_price_string)
     discount_price = (skl_price - WoodItem.separated_str2num(self.sleva_skl)) * 0.61
-    round_discount_price = WoodItem.round_up_on_decimals(discount_price)
+    # round_discount_price = WoodItem.round_up_on_decimals(discount_price)
+    round_discount_price = WoodItem.round_on_decimals(discount_price)
     return WoodItem.num2separated_str(round_discount_price)
 
   # Static methods
@@ -68,13 +69,16 @@ class WoodItem:
   def separated_str2num(string):
     return int(string.replace(' ',''))
   
-  def round_up_on_decimals(number):
-    rounded_up_number = ceil(number)
-    last_number = rounded_up_number - (rounded_up_number // 10) * 10
-    if last_number == 0:
-      return rounded_up_number
-    else:
-      return rounded_up_number + 10 - last_number
+  # def round_up_on_decimals(number):
+  #   rounded_up_number = ceil(number)
+  #   last_number = rounded_up_number - (rounded_up_number // 10) * 10
+  #   if last_number == 0:
+  #     return rounded_up_number
+  #   else:
+  #     return rounded_up_number + 10 - last_number
+
+  def round_on_decimals(number):
+    return round(number, -1)
 
   
   

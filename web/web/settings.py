@@ -26,6 +26,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'setmeinprod')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
+# CSFR validation needed settings
+CSRF_TRUSTED_ORIGINS = ['https://*.palivosedlacek.cz', 'http://*.palivosedlacek.cz','https://*.127.0.0.1']
+
 # Sending email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
