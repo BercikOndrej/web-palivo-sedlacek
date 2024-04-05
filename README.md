@@ -143,6 +143,14 @@
 
 - After that we can test visibility of our website in Google searching
 
+### Add website icon
+- We need have right format of icon -> `favicon.ico` is the best options but more formats is supported
+- We can create a favicon on [favicon.io](https://favicon.io)
+- We need define path to our favicon in `header` html section:
+`<link rel="icon" type="image/ico" href="{% static 'website/favicon.ico' %}">`
+- If we don't see any changes we can try empty cashes of web browser
+- We can see changes after reindexing our website inn Google searching result
+
 ### Add backlinks in our (borthers) Google company/business website
 
 ### Adding more keywords
