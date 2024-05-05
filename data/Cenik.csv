@@ -1,6 +1,5 @@
-skupina dřevin;druh dřeviny;25 cm: syp;25 cm: skl;33 cm: syp;33 cm: skl;50 cm: syp;50 cm: skl;100 cm;sleva skl
-tvrdé;jasan;1 650;2 700;1 590;2 600;1 530;2 500;2 000;null
-tvrdé;dub;1 650;2 700;1 590;2 600;1 530;2 500;2 100;300
-měkké;olše/lípa/smrk;1 470;2 400;1 410;2 300;1 350;2 200;1 900;500
-null;buk;1 710;2 800;1 650;2 700;1 590;2 600;2 100;null
-null;bříza;1 650;2 700;1 590;2 600;1 530;2 500;2 200;500
+﻿skupina dřevin;druh dřeviny;25 cm: syp;25 cm: skl;33 cm: syp;33 cm: skl;50 cm: syp;50 cm: skl;100 cm;sleva skl
+tvrdé;jasan;1 590;2 600;1 530;2 500;1 460;2 400;1 900;null
+tvrdé;dub;1 460;2 400;1 400;2 300;1 340;2 200;1 800;null
+měkké;olše/lípa/smrk;1 100;1 800;1 040;1 700;980;1 600;1 300;null
+null;buk;1 650;2 700;1 590;2 600;1 530;2 500;2 000;null
