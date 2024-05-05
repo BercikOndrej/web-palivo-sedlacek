@@ -108,7 +108,8 @@
 ### Price list edit/change
 - We can do that by `SCP (Secure copy)`
 - `scp <file> <user>@<server_ip_address>:<absolute_path_to_old_price-list>`
-- For example: `scp Cenik.csv root@64.226.69.165 /root/web-palivosedlacek/data/Cenik.csv`
+- For example: `scp Cenik.csv root@64.226.69.165:/root/web-palivosedlacek/data/Cenik.csv`
+- Or other example: `scp Cenik.csv root@palivosedlacek.cz:/root/web-palivosedlacek/data/Cenik.csv`
 - New price list file must be named exatly `Cenik.csv`
 - It is posible because of volume definition in `docker-compose.yml` file for our service `app` : `./data:/vol/web/price-list` -> app always take price list from `data` directory
 - We need always turn off out website containers and then start up again
