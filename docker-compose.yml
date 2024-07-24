@@ -8,11 +8,11 @@ services:
       - static-files:/vol/web
       - ./data:/vol/web/price-list
     environment:
-      - SECRET_KEY=q2rc=2=wmn^(^=210vz!hon+vw@$bd!+hf&@zj1g2xowz77=m*
-      - ALLOWED_HOSTS=palivosedlacek.cz,www.palivosedlacek.cz
-      - EMAIL_HOST=smtp.gmail.com
-      - EMAIL_HOST_USER=palivosedlacek@gmail.com
-      - EMAIL_HOST_PASSWORD=drhs unov rmyw ixvu
+      - SECRET_KEY=<secret_key>
+      - ALLOWED_HOSTS=<your_hosts>
+      - EMAIL_HOST=<email_host>
+      - EMAIL_HOST_USER=<your_email>
+      - EMAIL_HOST_PASSWORD=<genereted_password>
       - CSV_FILE_PATH=/vol/web/price-list/Cenik.csv
       - DEBUG=0
     restart: always
@@ -26,7 +26,7 @@ services:
       - certbot-web:/vol/www
       - certbot-certs:/etc/letsencrypt
     environment:
-      - DOMAIN=palivosedlacek.cz
+      - DOMAIN=<your_domain>
     ports:
       - "80:80"
       - "443:443"
@@ -39,8 +39,8 @@ services:
       context: ./docker/certbot
     command: echo "Skipping..."
     environment:
-      - EMAIL=palivosedlacek@gmail.com
-      - DOMAIN=palivosedlacek.cz
+      - EMAIL=<your_email>
+      - DOMAIN=<your_domain>
     volumes:
       - certbot-web:/vol/www
       - certbot-certs:/etc/letsencrypt
